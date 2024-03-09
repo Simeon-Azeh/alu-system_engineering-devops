@@ -1,26 +1,7 @@
-#!/bin/bash
-
-# Update package index
-apt-get update
-
-# Install nginx with "-y" option to assume "yes" to all prompts
-apt-get install -y nginx
-
-# Configure nginx to listen on port 80 and serve a custom HTML page
-echo 'server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
-
-        root /var/www/html;
-        index index.html index.htm index.nginx-debian.html;
-
-        server_name _;
-
-        location / {
-                try_files $uri $uri/ =404;
-                echo "Holberton School for the win!" > /var/www/html/index.html;
-        }
-}' > /etc/nginx/sites-available/default
-
-# Restart nginx
-service nginx restart
+#!/usr/bin/env bash
+# installs nginx on a remote server and configures it
+sudo apt update
+sudo apt install nginx -y
+sudo touch /var/www/html/index.html
+echo "Holberton School" | sudo tee /var/www/html/index.html
+sudo service nginx start
